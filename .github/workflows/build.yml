@@ -3,9 +3,9 @@ name: Build and test inspec-reporter-json-hdf
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   test:
