@@ -1,4 +1,3 @@
-# Build Report
 
 require 'inspec/plugin/v2'
 require 'json'
@@ -10,6 +9,7 @@ VALID_STATUSES = %w[passed failed].freeze
 DATE_FORMAT = '%Y-%m-%d'.freeze
 
 module InspecPlugins::HdfReporter
+  # Reporter Plugin Class
   class Reporter < Inspec.plugin(2, :reporter)
     def render
       output(report.to_json, false)
@@ -122,9 +122,13 @@ module InspecPlugins::HdfReporter
 
     def collect_attestations
       plugin_config = Inspec::Config.cached.fetch_plugin_config('inspec-reporter-json-hdf')
-      attestations = plugin_config['attestations']
+      attestations = plugin_config['attestations'] || []
 
-      validate_attestation(attestations)
+      if attestations.empty?
+        puts 'Warning: Attestations not provided; HDF will be generated without attestations.'
+      else
+        validate_attestation(attestations)
+      end
       attestations
     end
 

@@ -1,3 +1,5 @@
+require 'inspec/plugin/v2'
+
 module InspecPlugins
   module HdfReporter
     class Plugin < Inspec.plugin(2)

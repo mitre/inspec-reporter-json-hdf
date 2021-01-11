@@ -14,4 +14,17 @@ Gem::Specification.new do |spec|
   spec.license       = 'Apache-2.0'
   spec.require_paths = ['lib']
   spec.files = Dir.glob('{{lib}/**/*,inspec-reporter-json-hdf.gemspec}').reject { |f| File.directory?(f) }
+
+  spec.required_ruby_version = '~> 2.5'
+
+  spec.add_runtime_dependency 'git-lite-version-bump', '>= 0.17.3'
+  spec.add_development_dependency 'bundler'
+  spec.add_development_dependency 'bundler-audit'
+  spec.add_development_dependency 'codeclimate-test-reporter'
+  spec.add_development_dependency 'minitest'
+  spec.add_development_dependency 'minitest-reporters'
+  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'inspec'
 end
