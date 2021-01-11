@@ -139,4 +139,5 @@ JSON_STRING='
   }
 }
 '
+
 echo $JSON_STRING > attestations.json
