@@ -3,9 +3,9 @@ name: Build and test inspec-reporter-json-hdf
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   test:
@@ -41,4 +41,11 @@ jobs:
         run: bundle-audit check --update
       - name: Build inspec-reporter-json-hdf gem
         run: gem build inspec-reporter-json-hdf.gemspec
+      - name: Install Inspec plugin
+        run: inspec plugin install inspec-reporter-json-hdf-*.gem
+      - name: Generate attestation file
+        run: sh generate_attestation_file.sh
+      - name: List files
+        run: ls -alh
+
 
