@@ -41,8 +41,12 @@ jobs:
         run: bundle-audit check --update
       - name: Build inspec-reporter-json-hdf gem
         run: gem build inspec-reporter-json-hdf.gemspec
+      - name: Install Inspec 
+        run: gem install inspec inspec-bin
       - name: Install Inspec plugin
         run: inspec plugin install inspec-reporter-json-hdf-*.gem
+        env:
+          CHEF_LICENSE: "accept"
       - name: Generate attestation file
         run: sh generate_attestation_file.sh
       - name: List files
