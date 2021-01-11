@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '~> 2.5'
 
-  spec.add_runtime_dependency 'git-lite-version-bump', '>= 0.17.3'
+  spec.add_runtime_dependency 'git-lite-version-bump', '~> 0.17', '>= 0.17.3'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'bundler-audit'
   spec.add_development_dependency 'codeclimate-test-reporter'
