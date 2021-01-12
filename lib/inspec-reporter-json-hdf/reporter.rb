@@ -106,6 +106,7 @@ module InspecPlugins::HdfReporter
       end
     end
 
+    # Check if its a valid Date and Date not in future.
     def valid_date?(date)
       DateTime.strptime(date, DATE_FORMAT) < DateTime.now
     rescue ArgumentError
