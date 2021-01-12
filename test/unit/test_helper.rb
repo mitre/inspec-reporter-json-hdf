@@ -1,0 +1,10 @@
+require 'simplecov'
+SimpleCov.start
+require 'minitest/autorun'
+$LOAD_PATH.unshift File.expand_path('../../../lib', __FILE__)
+require 'inspec-reporter-json-hdf'
+
+require 'minitest/reporters'
+
+reporter_options = { color: true, slow_count: 5}
+Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new(reporter_options)]

@@ -1,0 +1,1 @@
+require_relative 'inspec-reporter-json-hdf/plugin'
