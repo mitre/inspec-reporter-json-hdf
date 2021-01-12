@@ -46,7 +46,7 @@ jobs:
       - name: Generate attestation file
         run: ruby test/generate_attestation_file.rb
       - name: Run inspec with attestations
-        run: inspec exec test/test-profile/ --reporter hdf:test_hdf.json --config attestations.json
+        run: inspec exec test/test-profile/ --reporter hdf:test_hdf.json --config attestations.json || true
         env:
           CHEF_LICENSE: "accept"
       - name: Run rake functional tests
