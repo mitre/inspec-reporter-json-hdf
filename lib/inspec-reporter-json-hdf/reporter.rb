@@ -78,7 +78,7 @@ module InspecPlugins::HdfReporter
     end
 
     def attestation_expired?(date, frequency)
-      (advanced_date(date, frequency).mjd - DateTime.now.mjd).negative?
+      advanced_date(date, frequency) < DateTime.now
     end
 
     def advanced_date(date, frequency)
@@ -107,7 +107,7 @@ module InspecPlugins::HdfReporter
     end
 
     def valid_date?(date)
-      (DateTime.strptime(date, DATE_FORMAT).mjd - DateTime.now.mjd) <= 0
+      DateTime.strptime(date, DATE_FORMAT) > DateTime.now
     rescue ArgumentError
       false
     end
