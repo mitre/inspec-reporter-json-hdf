@@ -107,7 +107,7 @@ module InspecPlugins::HdfReporter
     end
 
     def valid_date?(date)
-      DateTime.strptime(date, DATE_FORMAT) > DateTime.now
+      (DateTime.strptime(date, DATE_FORMAT).mjd - DateTime.now.mjd) <= 0
     rescue ArgumentError
       false
     end
