@@ -6,7 +6,7 @@ on:
 
 jobs:
   release:
-    name: Release to gem hosts and docker registry
+    name: Release to gem hosts
     runs-on: ubuntu-latest
     steps:
       - name: Setup ruby
