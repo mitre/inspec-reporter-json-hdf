@@ -12,3 +12,9 @@ Rake::TestTask.new(:functional) do |t|
   t.libs << 'lib'
   t.test_files = FileList['test/functional/*_test.rb']
 end
+
+desc 'Build for release'
+task :build_release do
+
+  system('gem build inspec-reporter-json-hdf.gemspec')
+end
