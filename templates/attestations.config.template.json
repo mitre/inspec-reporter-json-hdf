@@ -1,0 +1,29 @@
+{
+    "plugins": {
+        "inspec-reporter-json-hdf": {
+            "include-attestations-file": {
+                "path": "./attestations.xlsx",
+                "type": "xlsx"
+            },
+            "attestations": [
+                {
+                    "control_id": "test-control-1",
+                    "explanation": "Non-expired Status passed",
+                    "frequency": "annually",
+                    "status": "passed",
+                    "updated": "2021-04-06",
+                    "updated_by": "John Doe, ISSO"
+                },
+                {
+                    "control_id": "test-control-2",
+                    "explanation": "Non-expired Status passed",
+                    "frequency": "semiannually",
+                    "status": "passed",
+                    "updated": "2021-04-06",
+                    "updated_by": "John Doe, ISSO"
+                }
+            ]
+        }
+    },
+    "version": "1.2"
+}
