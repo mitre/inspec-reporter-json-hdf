@@ -1,5 +1,6 @@
 require 'json'
 require 'date'
+require 'csv'
 
 
 DATE_FORMAT = '%Y-%m-%d'.freeze
@@ -144,10 +145,21 @@ attestations << {
 config_json = {
   'plugins' => {
     'inspec-reporter-json-hdf' => {
-      'attestations' => attestations
+       'include-attestations-file' => {
+           'type' => 'csv',
+           'path' => './attestations.csv'
+       },
+      'attestations' => attestations[0..6]
     }
   },
   'version' => '1.2'
 }
 
 File.write('attestations.json', config_json.to_json)
+
+CSV.open("attestations.csv", "wb") do |csv|
+  csv << ["Control_ID","Explanation","Frequency","Status","Updated","Updated_By"]
+  attestations[7..15].each do |hash|
+    csv << hash.values
+  end
+end
