@@ -1,6 +1,7 @@
 
 require 'inspec/plugin/v2'
 require 'json'
+require 'roo'
 
 VALID_FREQUENCY = %w[annually semiannually quarterly monthly every2weeks weekly every3days daily].freeze
 
@@ -123,7 +124,44 @@ module InspecPlugins::HdfReporter
 
     def collect_attestations
       plugin_config = Inspec::Config.cached.fetch_plugin_config('inspec-reporter-json-hdf')
-      attestations = plugin_config['attestations'] || []
+      attestations = []
+      if plugin_config['include-attestations-file']
+        if File.exist?(plugin_config['include-attestations-file']['path'])
+          if plugin_config['include-attestations-file']['type'].eql?('csv')
+            sheet = Roo::Spreadsheet.open(plugin_config['include-attestations-file']['path'], extension: :csv).sheet(0)
+
+            attestations = sheet.parse(control_id: "Control_ID",
+                                       explanation: "Explanation",
+                                       frequency: "Frequency",
+                                       status: "Status",
+                                       updated: "Updated",
+                                       updated_by: "Updated_By",
+                                       clean:true
+                                       )
+          elsif plugin_config['include-attestations-file']['type'].eql?('xlsx')
+            sheet = Roo::Spreadsheet.open(plugin_config['include-attestations-file']['path'], extension: :xlsx).sheet(0)
+
+            attestations = sheet.parse(control_id: "Control_ID",
+                                       explanation: "Explanation",
+                                       frequency: "Frequency",
+                                       status: "Status",
+                                       updated: "Updated",
+                                       updated_by: "Updated_By",
+                                       clean:true
+                                       )
+            attestations.map do |h|
+              h[:updated] = h[:updated].to_s
+            end
+          else
+            puts 'Warning: Invalid `include-attestations-file` type provided. Supported types: csv, xlsx'
+          end
+        else
+          puts "Warning: Include Attestation File provided  '#{plugin_config['include-attestations-file']['path']}' not found."
+        end
+      end
+      attestations.map!{ |x| x.transform_keys(&:to_s) }
+      attestations = attestations + (plugin_config['attestations'] || [])
+      attestations.reject! { |x| x['status'].eql?("") || x['status'].nil? }
 
       if attestations.empty?
         puts 'Warning: Attestations not provided; HDF will be generated without attestations.'
