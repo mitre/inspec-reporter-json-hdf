@@ -8,7 +8,7 @@
             "attestations": [
                 {
                     "control_id": "test-control-1",
-                    "explanation": "Non-expired Status passed",
+                    "explanation": "The routine review through interview/examination attests to this control passing",
                     "frequency": "annually",
                     "status": "passed",
                     "updated": "2021-04-06",
@@ -16,7 +16,7 @@
                 },
                 {
                     "control_id": "test-control-2",
-                    "explanation": "Non-expired Status passed",
+                    "explanation": "The routine review through interview/examination attests to this control passing",
                     "frequency": "semiannually",
                     "status": "passed",
                     "updated": "2021-04-06",
