@@ -83,16 +83,24 @@ module InspecPlugins::HdfReporter
 
     def advanced_date(date, frequency)
       parsed_date = DateTime.strptime(date, DATE_FORMAT)
-
+      puts parsed_date
       case frequency.downcase
       when 'annually'
-        parsed_date.next_year(1)
+        tmp = parsed_date.next_year(1)
+        puts tmp
+        tmp
       when 'semiannually'
-        parsed_date.next_year(0.5)
+        tmp = parsed_date.next_year(0.5)
+        puts tmp
+        tmp
       when 'quarterly'
-        parsed_date.next_year(0.25)
+        tmp = parsed_date.next_year(0.25)
+        puts tmp
+        tmp
       when 'monthly'
-        parsed_date.next_month(1)
+        tmp = parsed_date.next_month(1)
+        puts tmp
+        tmp
       when 'every2weeks'
         parsed_date.next_day(14)
       when 'weekly'
