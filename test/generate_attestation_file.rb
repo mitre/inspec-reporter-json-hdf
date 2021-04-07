@@ -149,7 +149,7 @@ config_json = {
            'type' => 'csv',
            'path' => './attestations.csv'
        },
-      'attestations' => attestations[0..6]
+      'attestations' => attestations[0..4]
     }
   },
   'version' => '1.2'
@@ -159,7 +159,7 @@ File.write('attestations.json', config_json.to_json)
 
 CSV.open("attestations.csv", "wb") do |csv|
   csv << ["Control_ID","Explanation","Frequency","Status","Updated","Updated_By"]
-  attestations[7..15].each do |hash|
+  attestations[5..15].each do |hash|
     csv << hash.values
   end
 end
