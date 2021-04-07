@@ -1,6 +1,8 @@
 
 require 'inspec/plugin/v2'
 require 'json'
+require 'tzinfo'
+
 
 VALID_FREQUENCY = %w[annually semiannually quarterly monthly every2weeks weekly every3days daily].freeze
 
@@ -82,18 +84,21 @@ module InspecPlugins::HdfReporter
     end
 
     def advanced_date(date, frequency)
-      parsed_date = DateTime.strptime('2021-01-12', DATE_FORMAT)
+      parsed_date = DateTime.strptime(date, DATE_FORMAT)
       puts parsed_date
       case frequency.downcase
       when 'annually'
+        puts 'annually'
         tmp = parsed_date.next_year(1)
         puts tmp
         tmp
       when 'semiannually'
+        puts 'semiannually'
         tmp = parsed_date.next_year(0.5)
         puts tmp
         tmp
       when 'quarterly'
+        puts 'quarterly'
         tmp = parsed_date.next_year(0.25)
         puts tmp
         tmp
