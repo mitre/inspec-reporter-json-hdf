@@ -89,9 +89,9 @@ module InspecPlugins::HdfReporter
       when 'annually'
         parsed_date.next_year(1)
       when 'semiannually'
-        parsed_date.next_year(0.5)
+        parsed_date.next_month(6)
       when 'quarterly'
-        parsed_date.next_year(0.25)
+        parsed_date.next_month(3)
       when 'monthly'
         parsed_date.next_month(1)
       when 'every2weeks'
