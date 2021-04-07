@@ -94,12 +94,12 @@ module InspecPlugins::HdfReporter
         tmp
       when 'semiannually'
         puts 'semiannually'
-        tmp = parsed_date.next_year(0.5)
+        tmp = parsed_date.next_month(6)
         puts tmp
         tmp
       when 'quarterly'
         puts 'quarterly'
-        tmp = parsed_date.next_year(0.25)
+        tmp = parsed_date.next_month(3)
         puts tmp
         tmp
       when 'monthly'
