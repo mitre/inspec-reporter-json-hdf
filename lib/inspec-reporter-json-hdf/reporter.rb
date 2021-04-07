@@ -82,7 +82,7 @@ module InspecPlugins::HdfReporter
     end
 
     def advanced_date(date, frequency)
-      parsed_date = DateTime.strptime(date, DATE_FORMAT)
+      parsed_date = DateTime.strptime('2021-01-10', DATE_FORMAT)
       puts parsed_date
       case frequency.downcase
       when 'annually'
