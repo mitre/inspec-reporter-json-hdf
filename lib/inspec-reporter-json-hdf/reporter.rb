@@ -125,6 +125,8 @@ module InspecPlugins::HdfReporter
     def collect_attestations
       plugin_config = Inspec::Config.cached.fetch_plugin_config('inspec-reporter-json-hdf')
       attestations = []
+
+      # Parse Attestations from include file.
       if plugin_config['include-attestations-file']
         if File.exist?(plugin_config['include-attestations-file']['path'])
           if plugin_config['include-attestations-file']['type'].eql?('csv')
@@ -160,7 +162,12 @@ module InspecPlugins::HdfReporter
         end
       end
       attestations.map!{ |x| x.transform_keys(&:to_s) }
-      attestations = attestations + (plugin_config['attestations'] || [])
+
+      # Merge inline Attestations from config file and `include file` with precedence to inline definitions.
+      attestations = (plugin_config['attestations'] || []) + attestations 
+      attestations.uniq! {|e| e['control_id'] }
+
+      # Remove Attestations records without status provided.
       attestations.reject! { |x| x['status'].eql?("") || x['status'].nil? }
 
       if attestations.empty?
