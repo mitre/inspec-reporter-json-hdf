@@ -9,6 +9,8 @@ VALID_STATUSES = %w[passed failed].freeze
 
 DATE_FORMAT = '%Y-%m-%d'.freeze
 
+SUPPORTED_INCLUDE_TYPES = %w[csv xlsx].freeze
+
 module InspecPlugins::HdfReporter
   # Reporter Plugin Class
   class Reporter < Inspec.plugin(2, :reporter)
@@ -42,40 +44,24 @@ module InspecPlugins::HdfReporter
     private
 
     def apply_attestation(results, attestation)
-      if results.empty?
-        results = [{
-          "code_desc": 'Manually verified Status provided through attestation',
-          "run_time": 0.0,
-          "start_time": DateTime.now.to_s,
-          "status": attestation['status'],
-          "message": attestation_message(attestation)
-        }]
-      else
-        results.each do |result|
-          result[:message] = 'Automated test returned as passed.' if result[:status].eql?('passed')
-          result[:message] = result[:skip_message] if result[:status].eql?('skipped')
-
-          result[:status] = attestation['status']
-          result[:message] = result[:message] + attestation_message(attestation)
-
-          if result[:backtrace]
-            result[:message] = result[:message] + "\nbacktrace: #{result[:backtrace]}"
-            result[:backtrace] = nil
-          end
-        end
-      end
-      results
+      results << {
+        "code_desc": 'Manually verified Status provided through attestation',
+        "run_time": 0.0,
+        "start_time": DateTime.now.to_s,
+        "status": attestation['status'],
+        "message": attestation_message(attestation)
+      }
     end
 
     def attestation_message(attestation)
-      "
-       Attestation:
-       Status: #{attestation['status']}
-       Explanation: #{attestation['explanation']}
-       Updated: #{attestation['updated']}
-       Updated By: #{attestation['updated_by']}
-       Frequency: #{attestation['frequency']}
-       "
+      [
+       'Attestation:',
+       "Status: #{attestation['status']}",
+       "Explanation: #{attestation['explanation']}",
+       "Updated: #{attestation['updated']}",
+       "Updated By: #{attestation['updated_by']}",
+       "Frequency: #{attestation['frequency']}",
+       ].join("\n")
     end
 
     def attestation_expired?(date, frequency)
@@ -122,45 +108,39 @@ module InspecPlugins::HdfReporter
       status.is_a?(String) && VALID_STATUSES.include?(status.downcase)
     end
 
+    def parse_include_file(include_file)
+      if File.exist?(include_file['path'])
+        if SUPPORTED_INCLUDE_TYPES.include?(include_file['type'])
+          sheet = Roo::Spreadsheet.open(include_file['path'], extension: include_file['type'].to_sym ).sheet(0)
+          
+          attestations = sheet.parse(control_id: "Control_ID",
+                                     explanation: "Explanation",
+                                     frequency: "Frequency",
+                                     status: "Status",
+                                     updated: "Updated",
+                                     updated_by: "Updated_By",
+                                     clean:true
+                                     )
+          # Following is required to convert Datetime field returned by xlsx parser to string
+          attestations.map do |h|
+            h[:updated] = h[:updated].to_s
+          end
+        else
+          puts "Warning: Invalid `include-attestations-file` type provided. Supported types: #{SUPPORTED_INCLUDE_TYPES.to_s}"
+        end
+      else
+        puts "Warning: Include Attestation File provided  '#{include_file['path']}' not found."
+      end
+      attestations || []
+    end
+
     def collect_attestations
       plugin_config = Inspec::Config.cached.fetch_plugin_config('inspec-reporter-json-hdf')
       attestations = []
 
       # Parse Attestations from include file.
-      if plugin_config['include-attestations-file']
-        if File.exist?(plugin_config['include-attestations-file']['path'])
-          if plugin_config['include-attestations-file']['type'].eql?('csv')
-            sheet = Roo::Spreadsheet.open(plugin_config['include-attestations-file']['path'], extension: :csv).sheet(0)
+      attestations = parse_include_file(plugin_config['include-attestations-file']) if plugin_config['include-attestations-file']
 
-            attestations = sheet.parse(control_id: "Control_ID",
-                                       explanation: "Explanation",
-                                       frequency: "Frequency",
-                                       status: "Status",
-                                       updated: "Updated",
-                                       updated_by: "Updated_By",
-                                       clean:true
-                                       )
-          elsif plugin_config['include-attestations-file']['type'].eql?('xlsx')
-            sheet = Roo::Spreadsheet.open(plugin_config['include-attestations-file']['path'], extension: :xlsx).sheet(0)
-
-            attestations = sheet.parse(control_id: "Control_ID",
-                                       explanation: "Explanation",
-                                       frequency: "Frequency",
-                                       status: "Status",
-                                       updated: "Updated",
-                                       updated_by: "Updated_By",
-                                       clean:true
-                                       )
-            attestations.map do |h|
-              h[:updated] = h[:updated].to_s
-            end
-          else
-            puts 'Warning: Invalid `include-attestations-file` type provided. Supported types: csv, xlsx'
-          end
-        else
-          puts "Warning: Include Attestation File provided  '#{plugin_config['include-attestations-file']['path']}' not found."
-        end
-      end
       attestations.map!{ |x| x.transform_keys(&:to_s) }
 
       # Merge inline Attestations from config file and `include file` with precedence to inline definitions.
