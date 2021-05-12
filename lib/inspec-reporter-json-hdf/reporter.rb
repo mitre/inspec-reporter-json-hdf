@@ -33,9 +33,7 @@ module InspecPlugins::HdfReporter
           next if attestation.nil?
 
           control[:attestation] = attestation
-          unless attestation_expired?(attestation['updated'], attestation['frequency'])
-            control[:results] = apply_attestation(control[:results], attestation)
-          end
+          control[:results] = apply_attestation(control[:results], attestation)
         end
       end
       report
@@ -44,24 +42,33 @@ module InspecPlugins::HdfReporter
     private
 
     def apply_attestation(results, attestation)
-      results << {
-        "code_desc": 'Manually verified Status provided through attestation',
-        "run_time": 0.0,
-        "start_time": DateTime.now.to_s,
-        "status": attestation['status'],
-        "message": attestation_message(attestation)
-      }
+      result_block = {}
+      if attestation_expired?(attestation['updated'], attestation['frequency'])
+        result_block['code_desc']= 'Manual verification status via attestation has expired'
+        result_block['status']= 'skipped'
+      else
+        result_block['code_desc']= 'Manually verified Status provided through attestation'
+        result_block['status']= attestation['status']
+      end
+      result_block['run_time']= 0.0
+      result_block['start_time']= DateTime.now.to_s
+      result_block['message']= attestation_message(attestation)
+      results << result_block
     end
 
     def attestation_message(attestation)
-      [
-       'Attestation:',
-       "Status: #{attestation['status']}",
-       "Explanation: #{attestation['explanation']}",
-       "Updated: #{attestation['updated']}",
-       "Updated By: #{attestation['updated_by']}",
-       "Frequency: #{attestation['frequency']}",
-       ].join("\n")
+      msg = []
+      msg << 'Attestation:'
+      if attestation_expired?(attestation['updated'], attestation['frequency'])
+        msg << "Expired Status: #{attestation['status']}"
+      else
+        msg << "Status: #{attestation['status']}"
+      end
+      msg << "Explanation: #{attestation['explanation']}"
+      msg << "Updated: #{attestation['updated']}"
+      msg << "Updated By: #{attestation['updated_by']}"
+      msg << "Frequency: #{attestation['frequency']}"
+      msg.join("\n")
     end
 
     def attestation_expired?(date, frequency)
