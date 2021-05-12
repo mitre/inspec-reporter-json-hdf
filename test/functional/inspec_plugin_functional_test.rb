@@ -67,40 +67,40 @@ class InspecPluginFunctionalTest < Minitest::Test
   def test_with_a_single_pass_expired_attestation
     hdf_json = JSON.parse(File.read('test_hdf.json'))
     assert_equal('passed', hdf_json['profiles'][0]['controls'][8]['results'][0]['status'])
-    assert_nil(hdf_json['profiles'][0]['controls'][8]['results'][1])
+    assert_equal('skipped', hdf_json['profiles'][0]['controls'][8]['results'][1]['status'])
     refute_nil(hdf_json['profiles'][0]['controls'][8]['attestation'])
   end
   def test_with_a_multiple_pass_expired_attestation
     hdf_json = JSON.parse(File.read('test_hdf.json'))
     assert_equal('passed', hdf_json['profiles'][0]['controls'][9]['results'][0]['status'])
     assert_equal('passed', hdf_json['profiles'][0]['controls'][9]['results'][1]['status'])
-    assert_nil(hdf_json['profiles'][0]['controls'][9]['results'][2])
+    assert_equal('skipped', hdf_json['profiles'][0]['controls'][9]['results'][2]['status'])
     refute_nil(hdf_json['profiles'][0]['controls'][9]['attestation'])
   end
   def test_with_a_single_fail_expired_attestation
     hdf_json = JSON.parse(File.read('test_hdf.json'))
     assert_equal('failed', hdf_json['profiles'][0]['controls'][10]['results'][0]['status'])
-    assert_nil(hdf_json['profiles'][0]['controls'][10]['results'][1])
+    assert_equal('skipped', hdf_json['profiles'][0]['controls'][10]['results'][1]['status'])
     refute_nil(hdf_json['profiles'][0]['controls'][10]['attestation'])
   end
   def test_with_a_multiple_fail_expired_attestation
     hdf_json = JSON.parse(File.read('test_hdf.json'))
     assert_equal('failed', hdf_json['profiles'][0]['controls'][11]['results'][0]['status'])
     assert_equal('failed', hdf_json['profiles'][0]['controls'][11]['results'][1]['status'])
-    assert_nil(hdf_json['profiles'][0]['controls'][11]['results'][2])
+    assert_equal('skipped', hdf_json['profiles'][0]['controls'][11]['results'][2]['status'])
     refute_nil(hdf_json['profiles'][0]['controls'][11]['attestation'])
   end
   def test_with_a_single_skip_expired_attestation
     hdf_json = JSON.parse(File.read('test_hdf.json'))
     assert_equal('skipped', hdf_json['profiles'][0]['controls'][12]['results'][0]['status'])
-    assert_nil(hdf_json['profiles'][0]['controls'][12]['results'][1])
+    assert_equal('skipped', hdf_json['profiles'][0]['controls'][12]['results'][1]['status'])
     refute_nil(hdf_json['profiles'][0]['controls'][12]['attestation'])
   end
   def test_with_a_multiple_skip_expired_attestation
     hdf_json = JSON.parse(File.read('test_hdf.json'))
     assert_equal('skipped', hdf_json['profiles'][0]['controls'][13]['results'][0]['status'])
     assert_equal('skipped', hdf_json['profiles'][0]['controls'][13]['results'][1]['status'])
-    assert_nil(hdf_json['profiles'][0]['controls'][13]['results'][2])
+    assert_equal('skipped', hdf_json['profiles'][0]['controls'][13]['results'][2]['status'])
     refute_nil(hdf_json['profiles'][0]['controls'][12]['attestation'])
   end
   def test_with_a_mixed_statuses_expired_attestation
@@ -108,12 +108,7 @@ class InspecPluginFunctionalTest < Minitest::Test
     assert_equal('skipped', hdf_json['profiles'][0]['controls'][14]['results'][0]['status'])
     assert_equal('passed', hdf_json['profiles'][0]['controls'][14]['results'][1]['status'])
     assert_equal('failed', hdf_json['profiles'][0]['controls'][14]['results'][2]['status'])
-    assert_nil(hdf_json['profiles'][0]['controls'][14]['results'][3])
+    assert_equal('skipped', hdf_json['profiles'][0]['controls'][14]['results'][3]['status'])
     refute_nil(hdf_json['profiles'][0]['controls'][14]['attestation'])
-  end
-  def test_with_a_no_statuses_expired_attestation
-    hdf_json = JSON.parse(File.read('test_hdf.json'))
-    assert_empty(hdf_json['profiles'][0]['controls'][15]['results'])
-    refute_nil(hdf_json['profiles'][0]['controls'][15]['attestation'])
   end
 end
