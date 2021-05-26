@@ -58,13 +58,17 @@ module InspecPlugins::HdfReporter
 
     def attestation_message(attestation)
       msg = []
-      msg << 'Attestation:'
+
       if attestation_expired?(attestation['updated'], attestation['frequency'])
+        msg << 'Expired Attestation:'
         msg << "Expired Status: #{attestation['status']}"
+        msg << "Expired Explanation: #{attestation['explanation']}"
       else
+        msg << 'Attestation:'
         msg << "Status: #{attestation['status']}"
+        msg << "Explanation: #{attestation['explanation']}"
       end
-      msg << "Explanation: #{attestation['explanation']}"
+
       msg << "Updated: #{attestation['updated']}"
       msg << "Updated By: #{attestation['updated_by']}"
       msg << "Frequency: #{attestation['frequency']}"
