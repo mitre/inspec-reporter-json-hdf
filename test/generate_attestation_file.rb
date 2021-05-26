@@ -79,7 +79,7 @@ attestations << {
 # Expired Attestations
 attestations << {
                    'control_id' => 'test-control-9',
-                   'explanation' => 'Expired Status passed',
+                   'explanation' => 'Expired explanation',
                    'frequency' => 'annually',
                    'status' => 'passed',
                    'updated' => DateTime.now.prev_year(1.5).strftime(DATE_FORMAT),
@@ -87,7 +87,7 @@ attestations << {
 }
 attestations << {
                    'control_id' => 'test-control-10',
-                   'explanation' => 'Expired Status passed',
+                   'explanation' => 'Expired explanation',
                    'frequency' => 'semiannually',
                    'status' => 'passed',
                    'updated' => DateTime.now.prev_year(0.75).strftime(DATE_FORMAT),
@@ -95,7 +95,7 @@ attestations << {
 }
 attestations << {
                    'control_id' => 'test-control-11',
-                   'explanation' => 'Expired Status passed',
+                   'explanation' => 'Expired explanation',
                    'frequency' => 'quarterly',
                    'status' => 'passed',
                    'updated' => DateTime.now.prev_year(0.5).strftime(DATE_FORMAT),
@@ -103,7 +103,7 @@ attestations << {
 }
 attestations << {
                    'control_id' => 'test-control-12',
-                   'explanation' => 'Expired Status passed',
+                   'explanation' => 'Expired explanation',
                    'frequency' => 'monthly',
                    'status' => 'passed',
                    'updated' => DateTime.now.prev_month(2).strftime(DATE_FORMAT),
@@ -111,7 +111,7 @@ attestations << {
 }
 attestations << {
                    'control_id' => 'test-control-13',
-                   'explanation' => 'Expired Status passed',
+                   'explanation' => 'Expired explanation',
                    'frequency' => 'every2weeks',
                    'status' => 'passed',
                    'updated' => DateTime.now.prev_day(15).strftime(DATE_FORMAT),
@@ -119,7 +119,7 @@ attestations << {
 }
 attestations << {
                    'control_id' => 'test-control-14',
-                   'explanation' => 'Expired Status passed',
+                   'explanation' => 'Expired explanation',
                    'frequency' => 'weekly',
                    'status' => 'passed',
                    'updated' => DateTime.now.prev_day(8).strftime(DATE_FORMAT),
@@ -127,7 +127,7 @@ attestations << {
 }
 attestations << {
                    'control_id' => 'test-control-15',
-                   'explanation' => 'Expired Status passed',
+                   'explanation' => 'Expired explanation',
                    'frequency' => 'every3days',
                    'status' => 'passed',
                    'updated' => DateTime.now.prev_day(4).strftime(DATE_FORMAT),
@@ -135,7 +135,7 @@ attestations << {
 }
 attestations << {
                    'control_id' => 'test-control-16',
-                   'explanation' => 'Expired Status passed',
+                   'explanation' => 'Expired explanation',
                    'frequency' => 'daily',
                    'status' => 'passed',
                    'updated' => DateTime.now.prev_day(2).strftime(DATE_FORMAT),
