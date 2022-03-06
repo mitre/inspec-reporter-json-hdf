@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'git-lite-version-bump', '~> 0.17', '>= 0.17.3'
   spec.add_runtime_dependency 'ruh-roo', '~> 3.0.1'
+  spec.add_runtime_dependency 'git-version-bump'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'bundler-audit'
