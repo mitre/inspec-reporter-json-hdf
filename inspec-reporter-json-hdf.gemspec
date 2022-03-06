@@ -15,6 +15,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.files = Dir.glob('{{lib}/**/*,inspec-reporter-json-hdf.gemspec}').reject { |f| File.directory?(f) }
 
+  spec.required_ruby_version = '>= 2.7', '< 3'
+
   spec.add_runtime_dependency 'ruh-roo', '~> 3.0.1'
   spec.add_runtime_dependency 'git-version-bump'
 
