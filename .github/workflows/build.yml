@@ -12,8 +12,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [ ubuntu-16.04, ubuntu-latest, macos-latest, windows-latest ]
-        ruby: [ 2.5, 2.6, 2.7 ]
+        platform: [ ubuntu-16.04, ubuntu-latest, macos-10.15, windows-latest ]
+        ruby: [ 2.7, 3.0, 3.1 ]
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -27,8 +27,8 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-      - name: Install bundler and git-lite-version-bump
-        run: gem install bundler git-lite-version-bump
+      - name: Install bundler and git-version-bump
+        run: gem install bundler git-version-bump
       - name: Run bundle install
         run: bundle install
       - name: Run rake unit tests
