@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    inspec-reporter-json-hdf (1.1.1.4.g968e7b5)
-      git-lite-version-bump (~> 0.17, >= 0.17.3)
+    inspec-reporter-json-hdf (1.1.1.5.g9372b88.1.dirty.20220306.173644)
+      git-version-bump
       ruh-roo (~> 3.0.1)
 
 GEM
@@ -313,7 +313,7 @@ GEM
       faraday (~> 1.0)
     ffi (1.15.5)
     fuzzyurl (0.9.0)
-    git-lite-version-bump (0.17.3)
+    git-version-bump (0.17.1)
     google-api-client (0.52.0)
       addressable (~> 2.5, >= 2.5.1)
       googleauth (~> 0.9)
