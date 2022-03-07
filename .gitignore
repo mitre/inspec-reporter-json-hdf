@@ -3,13 +3,21 @@
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,ruby
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,macos,ruby
 
+
+# Functional and Unit test data
+
+*.swp
+attestations.*
+**.lock
+test_hdf.json
+
 ### macOS ###
 # General
 .DS_Store
 .AppleDouble
 .LSOverride
 
-# Icon must end with two \r
+# Icon must end with two 
 Icon
 
 

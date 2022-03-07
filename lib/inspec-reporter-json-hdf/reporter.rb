@@ -2,6 +2,8 @@
 require 'inspec/plugin/v2'
 require 'json'
 require 'roo'
+require 'pry'
+require "ohai" unless defined?(Ohai::System)
 
 VALID_FREQUENCY = %w[annually semiannually quarterly monthly every2weeks weekly every3days daily].freeze
 
@@ -14,6 +16,55 @@ SUPPORTED_INCLUDE_TYPES = %w[csv xlsx].freeze
 module InspecPlugins::HdfReporter
   # Reporter Plugin Class
   class Reporter < Inspec.plugin(2, :reporter)
+    
+    # references
+    # https://github.com/chef/ohai/pull/1503/files
+    # https://github.com/chef/chef/blob/7558c414030d082194d0d2b5f74279ce151517e9/lib/chef/client.rb#L574-L609
+    # 
+    # binding.pry
+    
+    # #
+    # # Populate the minimal ohai attributes defined in #run_ohai with data train collects.
+    # #
+    # # Eventually ohai may support colleciton of data.
+    # #
+    # def get_ohai_data_remotely
+    #   ohai.data[:fqdn] = if transport_connection.respond_to?(:hostname)
+    #                        transport_connection.hostname
+    #                      else
+    #                        Chef::Config[:target_mode][:host]
+    #                      end
+    #   if transport_connection.respond_to?(:os)
+    #     ohai.data[:platform] = transport_connection.os.name
+    #     ohai.data[:platform_version] = transport_connection.os.release
+    #     ohai.data[:os] = transport_connection.os.family_hierarchy[1]
+    #     ohai.data[:platform_family] = transport_connection.os.family
+    #   end
+    #   # train does not collect these specifically
+    #   # ohai.data[:machinename] = nil
+    #   # ohai.data[:hostname] = nil
+    #   # ohai.data[:os_version] = nil # kernel version
+
+    #   ohai.data[:ohai_time] = Time.now.to_f
+    #   events.ohai_completed(node)
+    # end
+
+    # #
+    # # Run ohai plugins.  Runs all ohai plugins unless minimal_ohai is specified.
+    # #
+    # # Sends the ohai_completed event when finished.
+    # #
+    # # @see Chef::EventDispatcher#
+    # # @see Chef::Config#minimal_ohai
+    # #
+    # # @api private
+    # #
+    # def run_ohai
+    #   filter = Chef::Config[:minimal_ohai] ? %w{fqdn machinename hostname platform platform_version ohai_time os os_version init_package} : nil
+    #   ohai.all_plugins(filter)
+    #   events.ohai_completed(node)
+    # end
+
     def render
       output(report.to_json, false)
     end
