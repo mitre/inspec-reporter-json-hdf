@@ -2,7 +2,7 @@
 This InSpec Reporter Plugin is developed under the [SAF](https://saf.mitre.org/#/) to extend security testing capabilities for the SAF shared community.
 
 * [**Installation**](#installation) 
-* [**Manual Attestation**](#manual-attestation)
+* [**Manual Attestation**](#manual-attestation)  _**<-- capability to address manual controls!**_
 ## Installation:
 #### if using inspec:
 ```
@@ -18,7 +18,7 @@ Sometimes requirements (i.e., "InSpec controls") in an InSpec profile require ma
 
 ### Getting Started:
 
-#### Step 1: Simply add your attestations to a json file, such as "my_attestations.json", for example:
+#### Step 1: Simply add your attestations to a json file, such as "my_attestations.json". For example:
 ```
 {
     "plugins": {
