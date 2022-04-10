@@ -1,20 +1,18 @@
 # inspec-reporter-json-hdf
-
 This InSpec Reporter Plugin is developed under the [SAF](https://saf.mitre.org/#/) to extend security testing capabilities for the SAF shared community.
 
+* [Installation](#installation) 
+* [Manual Attestation](#manual-attestation)
 ## Installation:
-
 #### if using inspec:
 ```
-"inspec plugin install inspec-reporter-json-hdf" 
+inspec plugin install inspec-reporter-json-hdf
 ```
 #### ...or if using cinc-auditor:
 ```
-"cinc-auditor plugin install inspec-reporter-json-hdf" 
+cinc-auditor plugin install inspec-reporter-json-hdf
 ```
-
 # Features:
-
 ## Manual Attestation
 Sometimes requirements (i.e., "InSpec controls") in an InSpec profile require manual review, whereby someone interviews/examines the requirement and confirms (attests as to) whether or not the control requirements have been satisfied. These attestations can be provided to a profile as follows:
 
