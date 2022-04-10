@@ -1,8 +1,8 @@
 # inspec-reporter-json-hdf
 This InSpec Reporter Plugin is developed under the [SAF](https://saf.mitre.org/#/) to extend security testing capabilities for the SAF shared community.
 
-* [Installation](#installation) 
-* [Manual Attestation](#manual-attestation)
+* [**Installation**](#installation) 
+* [**Manual Attestation**](#manual-attestation)
 ## Installation:
 #### if using inspec:
 ```
