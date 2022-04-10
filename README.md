@@ -56,13 +56,13 @@ Sometimes requirements (i.e., "InSpec controls") in an InSpec profile require ma
     "version": "1.2"
 }
 ```
-#### Step 2: Use the _**HDF**_ reporter _**AND**_ the --config option with attestations file:
+#### Step 2: Supply this attestations file using the "--config" flag and request the _**HDF**_ reporter:
 ```
-inspec exec <path to InSpec profile> --reporter hdf:<path/results_filename>.json --config <path/attestations_filename>.json
+inspec exec <path to InSpec profile> --config <path/attestations_filename>.json --reporter hdf:<path/results_filename>.json 
 ```
 for example:
 ```
-inspec exec https://github.com/mitre/oracle-mysql-ee-5.7-cis-baseline/archive/master.tar.gz --reporter hdf:my_results_with_attestations.json --config my_attestations.json
+inspec exec https://github.com/mitre/oracle-mysql-ee-5.7-cis-baseline/archive/master.tar.gz --config my_attestations.json --reporter hdf:my_results_with_attestations.json 
 ```
 #### Before and after attestation:
 ![image](https://user-images.githubusercontent.com/34140975/162635932-2ae58e7e-4616-4a7e-8ecf-2ee720ed6006.png)
