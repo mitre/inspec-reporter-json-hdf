@@ -16,7 +16,7 @@ This InSpec Reporter Plugin is developed under the [SAF](https://saf.mitre.org/#
 # Features:
 
 ## Manual Attestation
-Sometimes requirements (i.e., "InSpec controls") in an InSpec profile require manual review, whereby someone interviews/examines the requirement and confirms (attests as to) whether or not the control requirements have been satisfied. These attestations can be provided to this profile as follow
+Sometimes requirements (i.e., "InSpec controls") in an InSpec profile require manual review, whereby someone interviews/examines the requirement and confirms (attests as to) whether or not the control requirements have been satisfied. These attestations can be provided to a profile as follows:
 
 ### Getting Started:
 
