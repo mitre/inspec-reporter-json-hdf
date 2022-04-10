@@ -1,6 +1,8 @@
 # inspec-reporter-json-hdf
 InSpec Reporter Plugin to be used with Heimdall
 
+This InSpec Reporter Plugin is developed under the SAF to extend security testing capabilities for the SAF shared community.
+
 ### NOTICE
 
 © 2018-2020 The MITRE Corporation.
