@@ -5,7 +5,7 @@ This InSpec Reporter Plugin is developed under the SAF to extend security testin
 
 ## Installation:
 
-#### After installing InSpec, run this command to support addressing/automating manual controls (discussed below):
+#### After installing InSpec, run this command to install this reporter plugin:
 ```
 "inspec plugin install inspec-reporter-json-hdf" 
 ```
@@ -17,7 +17,7 @@ This InSpec Reporter Plugin is developed under the SAF to extend security testin
 # Features:
 
 ## Manual Attestation
-Sometimes, controls in an InSpec profile require manual review, whereby someone interviews/examines the requirement and confirms (attests as to) whether or not the control requirements have been satisfied. These attestations can be provided to this profile as follow
+Sometimes requirements (i.e., "InSpec controls") in an InSpec profile require manual review, whereby someone interviews/examines the requirement and confirms (attests as to) whether or not the control requirements have been satisfied. These attestations can be provided to this profile as follow
 
 ### Usage:
 
@@ -61,6 +61,9 @@ Sometimes, controls in an InSpec profile require manual review, whereby someone 
 ```
 inspec exec https://github.com/mitre/oracle-mysql-ee-5.7-cis-baseline/archive/master.tar.gz --reporter hdf:my_results.json --config my_attestations.json
 ```
+#### Before and after attestation:
+![image](https://user-images.githubusercontent.com/34140975/162635932-2ae58e7e-4616-4a7e-8ecf-2ee720ed6006.png)
+
 
 ### NOTICE
 
