@@ -20,7 +20,7 @@ Sometimes requirements (i.e., "InSpec controls") in an InSpec profile require ma
 
 ### Getting Started:
 
-#### Step 1: Simply add your attestations to a json file, such as "my_attestations.json":
+#### Step 1: Simply add your attestations to a json file, such as "my_attestations.json", for example:
 ```
 {
     "plugins": {
