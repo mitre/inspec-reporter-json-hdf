@@ -1,11 +1,10 @@
 # inspec-reporter-json-hdf
-InSpec Reporter Plugin to be used with Heimdall
 
-This InSpec Reporter Plugin is developed under the SAF to extend security testing capabilities for the SAF shared community.
+This InSpec Reporter Plugin is developed under the [SAF](https://saf.mitre.org/#/) to extend security testing capabilities for the SAF shared community.
 
 ## Installation:
 
-#### After installing InSpec, run this command to install this reporter plugin:
+#### if using inspec:
 ```
 "inspec plugin install inspec-reporter-json-hdf" 
 ```
@@ -19,7 +18,7 @@ This InSpec Reporter Plugin is developed under the SAF to extend security testin
 ## Manual Attestation
 Sometimes requirements (i.e., "InSpec controls") in an InSpec profile require manual review, whereby someone interviews/examines the requirement and confirms (attests as to) whether or not the control requirements have been satisfied. These attestations can be provided to this profile as follow
 
-### Usage:
+### Getting Started:
 
 #### Step 1: Simply add your attestations to a json file, such as "my_attestations.json":
 ```
@@ -63,7 +62,35 @@ inspec exec https://github.com/mitre/oracle-mysql-ee-5.7-cis-baseline/archive/ma
 ```
 #### Before and after attestation:
 ![image](https://user-images.githubusercontent.com/34140975/162635932-2ae58e7e-4616-4a7e-8ecf-2ee720ed6006.png)
-
+### Detailed Usage:
+#### Attestations JSON template:
+```
+{
+    "plugins": {
+        "inspec-reporter-json-hdf": {
+            "attestations": [
+                {
+		"control_id": "<InSpec Control ID>",
+		"explanation": "<Attestation text explaining compliance or non-compliance>",
+		"frequency": "<How often this review/attestation needs to be updated - Supported frequency choices:  annually, semiannually, quarterly, monthly, every2weeks, weekly, every3days, daily>",
+		"status": "<assigned status based on review/attestation - Supported status value choices: passed, failed>",
+		"updated": "<last date attestation was performed (in YYYY-MM-DD format) - e.g., 2021-04-12>",
+		"updated_by": "<Name, Role of person performing attestation for this control>"
+                },
+                {
+		"control_id": "<Another InSpec Control ID>",
+		"explanation": "<Attestation text explaining compliance or non-compliance>",
+		"frequency": "<How often this review/attestation needs to be updated - Supported frequency choices:  annually, semiannually, quarterly, monthly, every2weeks, weekly, every3days, daily>",
+		"status": "<assigned status based on review/attestation - Supported status value choices: passed, failed>",
+		"updated": "<last date attestation was performed (in YYYY-MM-DD format) - e.g., 2021-04-12>",
+		"updated_by": "<Name, Role of person performing attestation for this control>"
+                }
+		]
+        }
+    },
+    "version": "1.2"
+}
+```
 
 ### NOTICE
 
