@@ -3,6 +3,65 @@ InSpec Reporter Plugin to be used with Heimdall
 
 This InSpec Reporter Plugin is developed under the SAF to extend security testing capabilities for the SAF shared community.
 
+## Installation:
+
+#### After installing InSpec, run this command to support addressing/automating manual controls (discussed below):
+```
+"inspec plugin install inspec-reporter-json-hdf" 
+```
+#### ...or if using cinc-auditor:
+```
+"cinc-auditor plugin install inspec-reporter-json-hdf" 
+```
+
+# Features:
+
+## Manual Attestation
+Sometimes, controls in an InSpec profile require manual review, whereby someone interviews/examines the requirement and confirms (attests as to) whether or not the control requirements have been satisfied. These attestations can be provided to this profile as follow
+
+### Usage:
+
+#### Step 1: Simply add your attestations to a json file, such as "my_attestations.json":
+```
+{
+    "plugins": {
+        "inspec-reporter-json-hdf": {
+            "attestations": [
+                {
+		"control_id": "2.1",
+		"explanation": "Discussed with team to ensure a dedicated machine is running this instance of MySQL.",
+		"frequency": "annually",
+		"status": "passed",
+		"updated": "2022-01-02",
+		"updated_by": "Json Smith, Security"
+                },
+                {
+		"control_id": "2.4",
+		"explanation": "Discussed with team to ensure that neither default nor shared cryptographic material is not being used.",
+		"frequency": "every3days",
+		"status": "passed",
+		"updated": "2022-04-09",
+		"updated_by": "Json Smith, Security"
+                },
+                {
+		"control_id": "9.1",
+		"explanation": "Reviewed deployment with team to ensure replication traffic is secured and found some connections non-secure.",
+		"frequency": "quarterly",
+		"status": "failed",
+		"updated": "2022-04-02",
+		"updated_by": "Json Smith, Security"
+                }
+		]
+        }
+    },
+    "version": "1.2"
+}
+```
+#### Step 2: Run your InSpec profile as you normally would, but instead use the hdf reporter *AND* give it your attestations file via the --config flag:
+```
+inspec exec https://github.com/mitre/oracle-mysql-ee-5.7-cis-baseline/archive/master.tar.gz --reporter hdf:my_results.json --config my_attestations.json
+```
+
 ### NOTICE
 
 © 2018-2020 The MITRE Corporation.
