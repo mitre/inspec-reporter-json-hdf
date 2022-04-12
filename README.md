@@ -17,7 +17,7 @@ cinc-auditor plugin install inspec-reporter-json-hdf
 Sometimes requirements (i.e., "InSpec controls") in an InSpec profile require manual review, whereby someone interviews/examines the requirement and confirms (attests as to) whether or not the control requirements have been satisfied. These attestations can be provided to a profile as follows:
 
 ### Getting Started:
-
+### Option 1:
 #### Step 1: Simply add your attestations to a json file, such as "my_attestations.json". For example:
 ```
 {
@@ -93,7 +93,32 @@ inspec exec https://github.com/mitre/oracle-mysql-ee-5.7-cis-baseline/archive/ma
     "version": "1.2"
 }
 ```
+### Option 2 - Use an Excel Spreadsheet for your attestations!
 
+#### Step 1: Add your attestations to an Excel Spreadsheet, such as "my_attestations.xlsx". For [example](https://github.com/mitre/inspec-reporter-json-hdf/blob/main/samples/my_attestations.xlsx):
+![image](https://user-images.githubusercontent.com/34140975/163013765-dddccef3-d74a-4872-94fd-eab9196d21a8.png)
+#### Step 2: Include your attestations to your config json file, such as "my_attestations.json". For example:
+```
+{
+    "plugins": {
+        "inspec-reporter-json-hdf": {
+	            "include-attestations-file": {
+                "path": "my_attestations.xlsx",
+                "type": "xlsx"
+            }
+        }
+    },
+    "version": "1.2"
+}
+```
+#### Step 3: Again, supply this attestations file using the "--config" flag and request the _**HDF**_ reporter:
+```
+inspec exec <path to InSpec profile> --config <path/attestations_filename>.json --reporter hdf:<path/results_filename>.json 
+```
+for example:
+```
+inspec exec https://github.com/mitre/oracle-mysql-ee-5.7-cis-baseline/archive/master.tar.gz --config my_attestations.json --reporter hdf:my_results_with_attestations.json 
+```
 ### NOTICE
 
 © 2018-2020 The MITRE Corporation.
