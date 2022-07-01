@@ -1,4 +1,12 @@
+# This capability has moved to the SAF CLI. This reporter is ***now depercated***.
+
+Please use the SAF CLI Attest capability.
+
+<https://saf-cli.mitre.org/#attest>
+
+
 # inspec-reporter-json-hdf
+
 This InSpec Reporter Plugin is developed under the [SAF](https://saf.mitre.org/#/) to extend security testing capabilities for the SAF shared community.
 
 * [**Installation**](#installation) 
